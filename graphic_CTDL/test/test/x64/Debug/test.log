@@ -1,0 +1,6 @@
+﻿  test.cpp
+test.obj : error LNK2019: unresolved external symbol circle referenced in function main
+test.obj : error LNK2019: unresolved external symbol closegraph referenced in function main
+test.obj : error LNK2019: unresolved external symbol initwindow referenced in function main
+graphics.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
+D:\Study\2022_2023\HK1\CTDL\graphic\test\x64\Debug\test.exe : fatal error LNK1120: 3 unresolved externals
