@@ -1,5 +1,4 @@
 # CTDL_LOP08_NHOM15
-# CTDL_Lop08_Nhom02
 - Dự án môn cấu trúc dữ liệu, được thực hiện bởi nhóm có các sinh viên sau:
   + Hà Đỗ Thái An - 21110362,
   + Lương Chin Du - 21110870,
