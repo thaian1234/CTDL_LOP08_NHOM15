@@ -7,4 +7,4 @@
   + Dự án 1: phân tích bài báo chapter 16, trong sách: "Selected Papers on Design of Algorithms", Donald E. Knuth, 
 giải thích thuật toán Two-way Rounding và ứng dụng.
   
-  + Dự án 2: phân tích các thuật toán bubble sort, comparison counting, merge sort, quick sort, shell sort, selection sort và mô phỏng cách hoạt động của chúng.
+  + Dự án 2: phân tích các thuật toán bubble sort, insertion sort, comparison counting, merge sort, quick sort, shell sort, selection sort và mô phỏng cách hoạt động của chúng.
