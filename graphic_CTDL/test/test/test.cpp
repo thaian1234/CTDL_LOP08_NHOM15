@@ -59,16 +59,39 @@ struct RecXY
 		z -= step;
 	}
 };
+struct STACK
+{
+	int top = -1;
+	RecXY stack[10];
+	bool IsEmpTy()
+	{
+		return top < 0;
+	}
+	void Push(int val) {
+		stack[++top].key = val;
+	}
+	int Pop()
+	{
+		if (this->IsEmpTy() == true)
+		{
+			return 0;
+		}
+		int x = stack[top--].key;
+		return x;
+	}
+};
 void nhapKey(RecXY rec[], int& n);
 
 void swapRec(RecXY &a, RecXY &b, RecXY arr[], int n);
 void swapRec_ShellSort(RecXY& a, RecXY& b, RecXY arr[], int n, RecXY gap[], int i_gap);
 void swapRec_Merge(RecXY& a, RecXY& b, RecXY arr[], int n, int s, int e, int mid);
+void swapRec_QuickSort(RecXY& a, RecXY& b, RecXY arr[], int n, RecXY gap[], int i_gap, RecXY pivot);
 
 void showRec(RecXY arr[], int n);
 void showRec_None(RecXY arr[], int s, int e);
 void showRec_None1(RecXY arr[], int s, int e);
 void showRec_NoColor(RecXY arr[], int n);
+void showRec_QuickSort(RecXY arr[], int s, int e);
 
 
 void bubbleSort(RecXY rec[], int n);
@@ -76,10 +99,14 @@ void selectionSort(RecXY rec[], int n);
 void comparisionCounting(RecXY rec[], int n);
 void insertionSort(RecXY rec[], int n);
 void shellSort(RecXY rec[], int n);
-void quickSort(RecXY rec[], int l, int r, int n);
 int nextGap(int gap);
 void inPlaceMerge(RecXY nums[], int start, int end, int n);
 void mergeSort(RecXY nums[], int s, int e, int n);
+
+int partition(RecXY rec[], int l, int h, int n, RecXY st[]);
+void quickSort_1(RecXY rec[], int l, int h, int n);
+
+
 
 int main() {
 	int gd = DETECT, gm;
@@ -122,7 +149,7 @@ int main() {
 		break;
 	case 7:
 		delay(1500);
-		quickSort(rec, 0, n - 1, n);
+		quickSort_1(rec, 0, n - 1, n);
 		break;
 	default:
 		break;
@@ -185,9 +212,19 @@ void showRec_None1(RecXY arr[], int s, int e)
 		floodfill(arr[i].x + 30, arr[i].y + 30, WHITE);
 	}
 }
+void showRec_QuickSort(RecXY arr[], int s, int e)
+{
+	for (int i = s; i <= e; i++)
+	{
+		arr[i].CreateRec();
+		setfillstyle(SOLID_FILL, LIGHTBLUE);
+		floodfill(arr[i].x + 30, arr[i].y + 30, WHITE);
+	}
+}
 void swapRec(RecXY &a, RecXY &b, RecXY arr[], int n) {
 	char mang[10] = "ARR";
 	int desOfCharArr = arr[0].y + 20;
+	//Cho Rec a xuong 80px, Rec b len 80px
 	for (int i = 0; i < 80; i++)
 	{
 		showRec(arr, n);
@@ -202,7 +239,7 @@ void swapRec(RecXY &a, RecXY &b, RecXY arr[], int n) {
 		swapbuffers();
 		cleardevice();
 	}
-	
+	//Tinh khoang cach giua Rec b va Rec a
 	int distance = b.x - a.x;
 	for (int i = 0; i < distance; i+=3)
 	{
@@ -219,6 +256,7 @@ void swapRec(RecXY &a, RecXY &b, RecXY arr[], int n) {
 		cleardevice();
 
 	}
+	//Cho Rec a len 80px, b xuong 80px
 	for (int i = 0; i < 80; i++)
 	{
 		showRec(arr, n);
@@ -366,6 +404,62 @@ void swapRec_ShellSort(RecXY& a, RecXY& b, RecXY arr[], int n, RecXY gap[], int 
 		floodfill(b.x + 10, b.y + 10, WHITE);
 		setfillstyle(SOLID_FILL, LIGHTBLUE);
 		floodfill(gap[i_gap - 1].x + 10, gap[i_gap - 1].y + 10, WHITE);
+		swapbuffers();
+
+		Sleep(5);
+		cleardevice();
+	}
+	outtextxy(0, desOfCharArr, mang);
+	showRec(arr, n);
+	swapbuffers();
+}
+void swapRec_QuickSort(RecXY& a, RecXY& b, RecXY arr[], int n, RecXY gap[], int i_gap, RecXY pivot) 
+{
+	char g[10] = "STACK";
+	char mang[10] = "ARR";
+	int desOfCharArr = arr[0].y + 20;
+	for (int i = 0; i < 80; i++)
+	{
+		showRec(arr, n);
+		showRec(gap, i_gap);
+
+		outtextxy(0, desOfCharArr, mang);
+		outtextxy(0, gap[0].y + 20, g);
+		a.movBottom(1);
+		b.movTop(1);
+		
+		showRec_QuickSort(arr, gap[0].key, gap[1].key);
+
+		swapbuffers();
+
+		Sleep(5);
+		cleardevice();
+	}
+	int distance = b.x - a.x;
+	for (int i = 0; i < distance; i += 2)
+	{
+		showRec(arr, n);
+		showRec(gap, i_gap);
+		outtextxy(0, gap[0].y + 20, g);
+		outtextxy(0, desOfCharArr, mang);
+		a.movRight(2);
+		b.movLeft(2);
+		
+		showRec_QuickSort(arr, gap[0].key, gap[1].key);
+
+		swapbuffers();
+		Sleep(10);
+		cleardevice();
+	}
+	for (int i = 0; i < 80; i++)
+	{
+		showRec(arr, n);
+		showRec(gap, i_gap);
+		outtextxy(0, gap[0].y + 20, g);
+		outtextxy(0, desOfCharArr, mang);
+		a.movTop(1);
+		b.movBottom(1);
+		showRec_QuickSort(arr, gap[0].key, gap[1].key);
 		swapbuffers();
 
 		Sleep(5);
@@ -719,40 +813,6 @@ void shellSort(RecXY rec[], int n)
 	showRec(rec, n);
 		
 }
-void quickSort(RecXY rec[], int l, int r, int n)
-{
-	if (l <= r)
-	{
-		int key = rec[(l + r) / 2].key;
-		int i = l;
-		int j = r;
-		while (i <= j)
-		{
-			while (rec[i].key < key)
-			{
-				i++;
-			}
-			while (rec[j].key > key)
-			{
-				j--;
-			}
-
-			if (i <= j)
-			{
-				swapRec(rec[i], rec[j], rec, n);
-				swap(rec[i], rec[j]);
-				i++;
-				j--;
-			}
-		}
-		if (l < j)
-			quickSort(rec, l, j, n);
-		if (r > i)
-			quickSort(rec, i, r, n);
-		
-	}
-	showRec(rec, n);
-}
 int nextGap(int gap)
 {
 	if (gap <= 1)
@@ -831,19 +891,6 @@ void inPlaceMerge(RecXY rec[], int s, int e, int n)
 		}
 	}
 
-	/*for (int i = 0; i < 100; i += 3)
-	{
-		for (int j = mid + 1; j <= e; j++)
-		{
-			showRec_NoColor(rec, n);
-			rec[j].movTop(3);
-			showRec_None(rec, s, mid);
-			showRec_None1(rec, mid + 1, e);
-			delay(10);
-			swapbuffers();
-			cleardevice();
-		}
-	}*/
 }
 void mergeSort(RecXY rec[], int s, int e, int n)
 {
@@ -869,4 +916,123 @@ void mergeSort(RecXY rec[], int s, int e, int n)
 	inPlaceMerge(rec, s, e, n);
 	showRec(rec, n);
 	
+}
+int partition(RecXY rec[], int l, int h, int n, RecXY st[])
+{
+	int x = rec[h].key;
+	int i = (l - 1);
+	RecXY pivot = rec[h];
+	for (int j = l; j <= h - 1; j++)
+	{
+		if (rec[j].key <= x)
+		{
+			i++;
+			swapRec_QuickSort(rec[i], rec[j], rec, n, st, 2, pivot);
+			swap(rec[i], rec[j]);
+		}
+	}
+	swapRec_QuickSort(rec[i + 1], rec[h], rec, n, st, 2, pivot);
+	swap(rec[i + 1], rec[h]);
+	return (i + 1);
+}
+void quickSort_1(RecXY rec[], int l, int h, int n)
+{
+	// Tao stack
+	STACK st;
+
+	// push index l va h vao stack
+	st.Push(l);
+	st.Push(h);
+	st.stack[0].initRec(200, 350);
+	st.stack[1].initRec(st.stack[0].x + 100, st.stack[0].y);
+
+	for (int i = 0; i < 130; i++)
+	{
+		showRec(rec, n);
+		st.stack[0].movLeft(1);
+		st.stack[1].movLeft(1);
+		swapbuffers();
+		cleardevice();
+		delay(10);
+	}
+	
+	// Lap va pop cho den khi stack rong
+	while (!st.IsEmpTy())
+	{
+		// Pop h va l
+		h = st.Pop();
+		l = st.Pop();
+		
+		// Tim vi tri pivot
+		int p = partition(rec, l, h, n, st.stack);
+
+		// Neu ma phan tu nam ben trai vi tri pivot thi xu li cac phan tu  ben trai vao stack
+		if (p - 1 > l)
+		{
+			for (int i = 0; i < 80; i++)
+			{
+				showRec(rec, n);
+				st.stack[0].movBottom(1);
+				st.stack[1].movBottom(1);
+				setfillstyle(SOLID_FILL, RED);
+				floodfill(st.stack[0].x + 10, st.stack[0].y + 10, WHITE);
+				setfillstyle(SOLID_FILL, RED);
+				floodfill(st.stack[1].x + 10, st.stack[1].y + 10, WHITE);
+				swapbuffers();
+				cleardevice();
+				delay(10);
+			}
+			delay(1000);
+
+			
+			st.stack[0].initRec(200, 350);
+			st.stack[1].initRec(st.stack[0].x + 100, st.stack[0].y);
+			for (int i = 0; i < 130; i++)
+			{
+				showRec(rec, n);
+				st.stack[0].movLeft(1);
+				st.stack[1].movLeft(1);
+				swapbuffers();
+				cleardevice();
+				delay(10);
+			}
+			st.Push(l);
+			st.Push(p - 1);
+			
+		}
+
+		// Neu ma phan tu nam ben phai vi tri pivot thi xu li cac phan tu ben phai vao stack
+
+		if (p + 1 < h)
+		{
+			for (int i = 0; i < 80; i++)
+			{
+				showRec(rec, n);
+				st.stack[0].movBottom(1);
+				st.stack[1].movBottom(1);
+				setfillstyle(SOLID_FILL, RED);
+				floodfill(st.stack[0].x + 10, st.stack[0].y + 10, WHITE);
+				setfillstyle(SOLID_FILL, RED);
+				floodfill(st.stack[1].x + 10, st.stack[1].y + 10, WHITE);
+				swapbuffers();
+				cleardevice();
+				delay(10);
+			}
+			
+			delay(1000);
+			st.stack[0].initRec(200, 350);
+			st.stack[1].initRec(st.stack[0].x + 100, st.stack[0].y);
+			for (int i = 0; i < 130; i++)
+			{
+				showRec(rec, n);
+				st.stack[0].movLeft(1);
+				st.stack[1].movLeft(1);
+				swapbuffers();
+				cleardevice();
+				delay(10);
+			}
+			st.Push(p + 1);
+			st.Push(h);
+		}
+	}
 }
