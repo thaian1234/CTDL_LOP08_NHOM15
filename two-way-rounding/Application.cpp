@@ -79,30 +79,28 @@ public:
         return -1;
     }
 };
-int two_way_round(double x, double threshold)
+int two_way_round(double x)
 {
-    if (x >= 0)
+    double fractional_part = x - floor(x);
+    if (fractional_part < 0.5)
     {
-        if (x >= threshold)
-        {
-            return lround(x);
-        }
-        else
-        {
-            if (x <= -threshold)
-            {
-                return floor(x);
-            }
-            else
-            {
-                return lround(x);
-            }
-        }
+        return floor(x);
+    }
+    else if (fractional_part > 0.5)
+    {
+        return ceil(x);
+    }
+    else
+    {
+        if (int(x) % 2 == 0)
+            return floor(x);
+        return ceil(x);
     }
 }
 int main()
 {
-
+   
+   
     Graph graph(5);  // Tao graph voi 5 Node
 
    //Them canh vao graph
@@ -114,9 +112,9 @@ int main()
     graph.AddEdge(3, 4, 5);
 
     double threshold = 0.5;
-    double distances[] = { 8.5, 15.2, 20.7, 10.5, 5.1, 6.3 };
+    double distances[] = { 8.5, 15.2, 20.7, 11.5, 5.1, 6.3 };
     for (double& distance : distances) {
-        distance = two_way_round(distance, threshold);
+        distance = two_way_round(distance);
     }
 
     // Sử dụng khoảng cách được làm tròn làm trọng số của các cạnh
@@ -128,7 +126,7 @@ int main()
     graph.AddEdge(3, 4, distances[5]);
 
     // Tính đường đi ngắn nhất giữa node 0 và node 4
-    int shortestPath = graph.ShortestPath(0, 4);
+    int shortestPath = graph.ShortestPath(0,4 );
     cout << "Shortest path: " << shortestPath << endl;
 
     return 0;
