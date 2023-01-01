@@ -428,22 +428,45 @@ void swapRec_QuickSort(RecXY& a, RecXY& b, RecXY arr[], int n, RecXY gap[], int 
 		a.movBottom(1);
 		b.movTop(1);
 		showRec_QuickSort(arr, gap[0].key, gap[1].key);
-		setfillstyle(SOLID_FILL, GREEN);
-		floodfill(pivot.x + 3, pivot.y + 3, WHITE);
+		/*setfillstyle(SOLID_FILL, GREEN);
+		floodfill(pivot.x + 10, pivot.y + 10, WHITE);*/
+		if (pivot.key == b.key)
+		{
+			setfillstyle(SOLID_FILL, GREEN);
+			floodfill(b.x + 10, b.y + 10, WHITE);
+		}
+		else
+		{
+			setfillstyle(SOLID_FILL, GREEN);
+			floodfill(pivot.x + 10, pivot.y + 10, WHITE);
+		}
 		swapbuffers();
 		Sleep(5);
 		cleardevice();
 	}
+	
 	int distance = b.x - a.x;
 	for (int i = 0; i < distance; i += 2)
 	{
 		showRec(arr, n);
 		showRec(gap, i_gap);
+
 		outtextxy(0, gap[0].y + 20, g);
 		outtextxy(0, desOfCharArr, mang);
 		a.movRight(2);
 		b.movLeft(2);
 		showRec_QuickSort(arr, gap[0].key, gap[1].key);
+
+		if (pivot.key == b.key)
+		{
+			setfillstyle(SOLID_FILL, GREEN);
+			floodfill(b.x + 10, b.y + 10, WHITE);
+		}
+		else
+		{
+			setfillstyle(SOLID_FILL, GREEN);
+			floodfill(pivot.x + 10, pivot.y + 10, WHITE);
+		}
 		swapbuffers();
 		Sleep(10);
 		cleardevice();
@@ -457,6 +480,16 @@ void swapRec_QuickSort(RecXY& a, RecXY& b, RecXY arr[], int n, RecXY gap[], int 
 		a.movTop(1);
 		b.movBottom(1);
 		showRec_QuickSort(arr, gap[0].key, gap[1].key);
+		if (pivot.key == b.key)
+		{
+			setfillstyle(SOLID_FILL, GREEN);
+			floodfill(b.x + 10, b.y + 10, WHITE);
+		}
+		else
+		{
+			setfillstyle(SOLID_FILL, GREEN);
+			floodfill(pivot.x + 10, pivot.y + 10, WHITE);
+		}
 		swapbuffers();
 
 		Sleep(5);
@@ -925,12 +958,12 @@ int partition(RecXY rec[], int l, int h, int n, RecXY st[])
 		if (rec[j].key <= x)
 		{
 			i++;
-			swapRec_QuickSort(rec[i], rec[j], rec, n, st, 2, rec[j]);
+			swapRec_QuickSort(rec[i], rec[j], rec, n, st, 2, rec[h]);
 			swap(rec[i], rec[j]);
 		}
 		
 	}
-	swapRec_QuickSort(rec[i + 1], rec[h], rec, n, st, 2, rec[i + 1]);
+	swapRec_QuickSort(rec[i + 1], rec[h], rec, n, st, 2, rec[h]);
 	swap(rec[i + 1], rec[h]);
 	return (i + 1);
 }
@@ -959,12 +992,14 @@ void quickSort_1(RecXY rec[], int l, int h, int n)
 	while (!st.IsEmpTy())
 	{
 		// Pop h va l
+		
 		h = st.Pop();
 		l = st.Pop();
 		
 		// Tim vi tri pivot
 		int p = partition(rec, l, h, n, st.stack);
-
+		setfillstyle(SOLID_FILL, GREEN);
+		floodfill(rec[p].x + 10, rec[p].y + 10, WHITE);
 		// Neu ma phan tu nam ben trai vi tri pivot thi xu li cac phan tu  ben trai vao stack
 		if (p - 1 > l)
 		{
@@ -973,6 +1008,8 @@ void quickSort_1(RecXY rec[], int l, int h, int n)
 				showRec(rec, n);
 				st.stack[0].movBottom(1);
 				st.stack[1].movBottom(1);
+				setfillstyle(SOLID_FILL, GREEN);
+				floodfill(rec[p].x + 10, rec[p].y + 10, WHITE);
 				setfillstyle(SOLID_FILL, RED);
 				floodfill(st.stack[0].x + 10, st.stack[0].y + 10, WHITE);
 				setfillstyle(SOLID_FILL, RED);
@@ -994,6 +1031,8 @@ void quickSort_1(RecXY rec[], int l, int h, int n)
 				showRec(rec, n);
 				st.stack[0].movLeft(1);
 				st.stack[1].movLeft(1);
+				setfillstyle(SOLID_FILL, GREEN);
+				floodfill(rec[p].x + 10, rec[p].y + 10, WHITE);
 				swapbuffers();
 				cleardevice();
 				delay(10);
@@ -1009,6 +1048,8 @@ void quickSort_1(RecXY rec[], int l, int h, int n)
 				showRec(rec, n);
 				st.stack[0].movBottom(1);
 				st.stack[1].movBottom(1);
+				setfillstyle(SOLID_FILL, GREEN);
+				floodfill(rec[p].x + 10, rec[p].y + 10, WHITE);
 				setfillstyle(SOLID_FILL, RED);
 				floodfill(st.stack[0].x + 10, st.stack[0].y + 10, WHITE);
 				setfillstyle(SOLID_FILL, RED);
@@ -1030,6 +1071,8 @@ void quickSort_1(RecXY rec[], int l, int h, int n)
 				showRec(rec, n);
 				st.stack[0].movLeft(1);
 				st.stack[1].movLeft(1);
+				setfillstyle(SOLID_FILL, GREEN);
+				floodfill(rec[p].x + 10, rec[p].y + 10, WHITE);
 				swapbuffers();
 				cleardevice();
 				delay(10);
