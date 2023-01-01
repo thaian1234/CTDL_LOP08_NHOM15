@@ -1,10 +1,3 @@
 ﻿  test.cpp
-C:\Users\Admin\OneDrive\Tài liệu\GitHub\CTDL_LOP08_NHOM15\graphic_CTDL\test\test\test.cpp(784,6): warning C4101: 'i': unreferenced local variable
-graphics.lib(dibutil.obj) : warning LNK4099: PDB '' was not found with 'graphics.lib(dibutil.obj)' or at ''; linking object as if no debug info
-graphics.lib(drawing.obj) : warning LNK4099: PDB '' was not found with 'graphics.lib(drawing.obj)' or at ''; linking object as if no debug info
-graphics.lib(file.obj) : warning LNK4099: PDB '' was not found with 'graphics.lib(file.obj)' or at ''; linking object as if no debug info
-graphics.lib(misc.obj) : warning LNK4099: PDB '' was not found with 'graphics.lib(misc.obj)' or at ''; linking object as if no debug info
-graphics.lib(text.obj) : warning LNK4099: PDB '' was not found with 'graphics.lib(text.obj)' or at ''; linking object as if no debug info
-graphics.lib(winbgi.obj) : warning LNK4099: PDB '' was not found with 'graphics.lib(winbgi.obj)' or at ''; linking object as if no debug info
-graphics.lib(winthread.obj) : warning LNK4099: PDB '' was not found with 'graphics.lib(winthread.obj)' or at ''; linking object as if no debug info
-  test.vcxproj -> C:\Users\Admin\OneDrive\Tài liệu\GitHub\CTDL_LOP08_NHOM15\graphic_CTDL\test\Debug\test.exe
+D:\Study\2022_2023\HK1\CTDL\graphic_CTDL\test\test\test.cpp(781,6): warning C4101: 'i': unreferenced local variable
+  test.vcxproj -> D:\Study\2022_2023\HK1\CTDL\graphic_CTDL\test\Debug\test.exe

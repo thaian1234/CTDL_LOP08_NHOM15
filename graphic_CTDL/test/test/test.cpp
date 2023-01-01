@@ -422,16 +422,15 @@ void swapRec_QuickSort(RecXY& a, RecXY& b, RecXY arr[], int n, RecXY gap[], int 
 	{
 		showRec(arr, n);
 		showRec(gap, i_gap);
-
+		
 		outtextxy(0, desOfCharArr, mang);
 		outtextxy(0, gap[0].y + 20, g);
 		a.movBottom(1);
 		b.movTop(1);
-		
 		showRec_QuickSort(arr, gap[0].key, gap[1].key);
-
+		setfillstyle(SOLID_FILL, GREEN);
+		floodfill(pivot.x + 3, pivot.y + 3, WHITE);
 		swapbuffers();
-
 		Sleep(5);
 		cleardevice();
 	}
@@ -444,9 +443,7 @@ void swapRec_QuickSort(RecXY& a, RecXY& b, RecXY arr[], int n, RecXY gap[], int 
 		outtextxy(0, desOfCharArr, mang);
 		a.movRight(2);
 		b.movLeft(2);
-		
 		showRec_QuickSort(arr, gap[0].key, gap[1].key);
-
 		swapbuffers();
 		Sleep(10);
 		cleardevice();
@@ -924,14 +921,16 @@ int partition(RecXY rec[], int l, int h, int n, RecXY st[])
 	RecXY pivot = rec[h];
 	for (int j = l; j <= h - 1; j++)
 	{
+		
 		if (rec[j].key <= x)
 		{
 			i++;
-			swapRec_QuickSort(rec[i], rec[j], rec, n, st, 2, pivot);
+			swapRec_QuickSort(rec[i], rec[j], rec, n, st, 2, rec[j]);
 			swap(rec[i], rec[j]);
 		}
+		
 	}
-	swapRec_QuickSort(rec[i + 1], rec[h], rec, n, st, 2, pivot);
+	swapRec_QuickSort(rec[i + 1], rec[h], rec, n, st, 2, rec[i + 1]);
 	swap(rec[i + 1], rec[h]);
 	return (i + 1);
 }
@@ -984,7 +983,10 @@ void quickSort_1(RecXY rec[], int l, int h, int n)
 			}
 			delay(1000);
 
-			
+		
+			st.Push(l);
+			st.Push(p - 1);
+
 			st.stack[0].initRec(200, 350);
 			st.stack[1].initRec(st.stack[0].x + 100, st.stack[0].y);
 			for (int i = 0; i < 130; i++)
@@ -996,9 +998,6 @@ void quickSort_1(RecXY rec[], int l, int h, int n)
 				cleardevice();
 				delay(10);
 			}
-			st.Push(l);
-			st.Push(p - 1);
-			
 		}
 
 		// Neu ma phan tu nam ben phai vi tri pivot thi xu li cac phan tu ben phai vao stack
@@ -1020,6 +1019,10 @@ void quickSort_1(RecXY rec[], int l, int h, int n)
 			}
 			
 			delay(1000);
+		
+			st.Push(p + 1);
+			st.Push(h);
+
 			st.stack[0].initRec(200, 350);
 			st.stack[1].initRec(st.stack[0].x + 100, st.stack[0].y);
 			for (int i = 0; i < 130; i++)
@@ -1031,8 +1034,6 @@ void quickSort_1(RecXY rec[], int l, int h, int n)
 				cleardevice();
 				delay(10);
 			}
-			st.Push(p + 1);
-			st.Push(h);
 		}
 	}
 }
